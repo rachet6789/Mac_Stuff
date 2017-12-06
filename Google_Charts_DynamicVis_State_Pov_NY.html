@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {packages: ['corechart']});
+        google.charts.setOnLoadCallback(init);
+
+
+        function init() {
+//            var options = {
+//                title: "1995",
+//                width: 400,
+//                height: 240,
+//                animation:{
+//                    duration: 1000,
+//                    easing: 'out',
+//                },
+//                vAxis: {minValue:0, maxValue:1000}
+//            };
+//            var data = new google.visualization.DataTable();
+//            data.addColumn('string', 'N');
+//            data.addColumn('number', 'Value');
+//            data.addRow(['Zerk', 200]);
+//            data.addRow(['Gwarg', 100]);
+
+            var chart = new google.visualization.ColumnChart(
+                document.getElementById('visualization'));
+            var button = document.getElementById('b1');
+
+
+
+
+            var wrapper = new google.visualization.ChartWrapper({
+                chartType: 'ColumnChart',
+                options: {title: "1995"},
+//                options: {hAxis: {title: "Years"}},
+//                dataSourceUrl: "https://docs.google.com/spreadsheets/d/1Lw96SCKwcLOHD6FESaKZQuoX1TWwC8-0S6jGEBce-bU/edit#gid=0",
+                containerId: 'visualization'
+            });
+
+            var dataSourceUrls = [
+                "https://docs.google.com/spreadsheets/d/1R2YvzJkphKIOPIESIyeF4_e4K4l9CJtUce_sLmtT5HI/edit#gid=0",
+                "https://docs.google.com/spreadsheets/d/1Lw96SCKwcLOHD6FESaKZQuoX1TWwC8-0S6jGEBce-bU/edit#gid=0"
+            ];
+            var dataOptions = [
+                {
+                    title: '1993-1995',
+                    somethingElse: "red"
+                },
+                {
+                    title: '2009-2016',
+                    somethingElse: "blue"
+                }
+            ];
+            var currentDataSetIndex = 1;
+
+            var toggleCurrentChart = function() {
+                currentDataSetIndex = 1 - currentDataSetIndex;
+                wrapper.setDataSourceUrl(dataSourceUrls[currentDataSetIndex]);
+                wrapper.setOptions(dataOptions[currentDataSetIndex]);
+
+//                wrapper.options({'title':'Population Density (people/km^2)', 'legend':'none'});
+                wrapper.draw();
+            };
+            toggleCurrentChart()
+            button.onclick = toggleCurrentChart
+
+
+
+
+
+//            function drawChart() {
+//// Disabling the button while the chart is drawing.
+//                button.disabled = true;
+//                google.visualization.events.addListener(chart, 'ready',
+//                    function() {
+//                        button.disabled = false;
+//                    });
+//                chart.draw(data, options);
+//            }
+//
+//            button.onclick = function() {
+//                var newValue = 1000 - data.getValue(0, 1);
+//                data.setValue(0, 1, newValue);
+//                if (options.title === "1995"){
+//                    options.title = "2016";
+//                }
+//                else {
+//                    options.title = "1995";
+//                }
+//                drawChart();
+//            }
+//            drawChart();
+        }
+
+
+    </script>
+</head>
+<body>
+<!-- Identify where the chart should be drawn. -->
+<div id="visualization">
+</div>
+<button id="b1">Change Year</button>
+</body>
+</html>
