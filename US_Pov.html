@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {packages: ['corechart']});
+        google.charts.setOnLoadCallback(init);
+
+
+        function init() {
+
+
+            var chart = new google.visualization.ColumnChart(
+                document.getElementById('visualization'));
+            var button = document.getElementById('b1');
+
+
+
+
+            var wrapper = new google.visualization.ChartWrapper({
+                chartType: 'ColumnChart',
+                options: {title: "1995"},
+                containerId: 'visualization'
+            });
+
+            var dataSourceUrls = [
+                "https://docs.google.com/spreadsheets/d/1FGeqPDWv9u4IxSfA9uA0U4ggEVYNxkf6thlFM9q1obo/edit#gid=0",
+                "https://docs.google.com/spreadsheets/d/1RaibuM82YuRIzuk7yduNU3cXz1kCyaTsIe0bgsY2IUc/edit#gid=0"
+            ];
+            var dataOptions = [
+                {
+                    title: '1993-1995',
+                    vAxis: {
+                        vewWindowMode: 'explicit',
+                        viewWindow: {
+                            max: 0.5,
+                            min: 0
+                        }
+                    }
+                },
+                {
+                    title: '2009-2016',
+                    vAxis: {
+                        vewWindowMode: 'explicit',
+                        viewWindow: {
+                            max: 0.5,
+                            min: 0
+                        }
+                    }
+                }
+            ];
+            var currentDataSetIndex = 1;
+
+            var toggleCurrentChart = function() {
+                currentDataSetIndex = 1 - currentDataSetIndex;
+                wrapper.setDataSourceUrl(dataSourceUrls[currentDataSetIndex]);
+                wrapper.setOptions(dataOptions[currentDataSetIndex]);
+
+                wrapper.draw();
+            };
+            toggleCurrentChart()
+            button.onclick = toggleCurrentChart
+
+
+
+        }
+
+
+    </script>
+</head>
+<body>
+<!-- Identify where the chart should be drawn. -->
+<div id="visualization">
+</div>
+<button id="b1">Change Year</button>
+</body>
+</html>
